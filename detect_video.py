@@ -6,6 +6,9 @@ model = YOLO("yolov8n.pt")
 
 CONFIDENCE_THRESHOLD = 0.5
 
+# Set to None to show all classes, or a list like ["person", "car"] to filter
+CLASSES_TO_DETECT = None
+
 source = 0  # change to "test_video.mp4" to test on the video file instead
 cap = cv2.VideoCapture(source)
 
@@ -45,6 +48,10 @@ while True:
         class_id = int(box.cls[0])
         class_name = model.names[class_id]
 
+        # Skip if we're filtering classes and this one isn't in our list
+        if CLASSES_TO_DETECT is not None and class_name not in CLASSES_TO_DETECT:
+            continue
+    
         box_thickness = max(1, int(2 * scale_factor))
         font_scale = 0.6 * scale_factor
         text_thickness = max(1, int(2 * scale_factor))

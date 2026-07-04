@@ -21,10 +21,12 @@ and ByteTrack for multi-object tracking, built with OpenCV for video I/O.
 7. Run: `python detect_video.py` (YOLOv8 object detection with bounding boxes - Day 3). Edit the `source` variable to switch between webcam (`0`) and video file (`"test_video.mp4"`).
 
 ## Notes
-- Tested on CPU-only hardware (Intel i5-4210U, no dedicated GPU); achieves ~7-8 FPS with YOLOv8n at reduced input resolution. Performance would be significantly higher on modern CPUs or with GPU acceleration.
-- Detection is limited to the 80 COCO object classes; objects outside this set (e.g., earbuds) or very small/distant objects may not be reliably detected.
+- Tested on CPU-only hardware (Intel i5-4210U, no dedicated GPU); achieves ~7-8 FPS with YOLOv8n at reduced input resolution.
+- Detection limited to 80 COCO classes; objects outside this set (e.g., earbuds) not detectable.
+- Robustness testing observations: dim lighting reduces detection reliability for smaller/detailed objects (e.g., plants); small objects (e.g., phone) have a distance "sweet spot" for reliable detection; fast movement causes brief bounding box flicker due to per-frame-only detection (motivates adding tracking); partial occlusion of a person was handled well.
 
 ## Progress Log
 - Day 1: Environment setup, dependencies installed, webcam access verified, repo initialized
 - Day 2: Built reusable video pipeline (webcam + video file support), added FPS counter, added optional output saving with unique timestamped filenames
 - Day 3: Integrated YOLOv8n for object detection, added bounding boxes with labels/confidence, added confidence threshold filtering, made box/text size scale with frame resolution, added FPS counter, optimized inference speed (~4-5 to ~7-8 FPS) using reduced input resolution (imgsz=320) - tested on CPU-only hardware (Intel i5-4210U, no dedicated GPU)
+- Day 4: Added optional class filtering, conducted robustness testing (multiple objects, lighting, distance, movement, occlusion) - documented findings on model limitations
