@@ -56,7 +56,7 @@ track_history = defaultdict(lambda: deque(maxlen=30))
 # Counts unique objects per class
 class_counts = {}
 
-source = 0  # change to "test_video.mp4" to test on the video file instead
+source = 0 # change to "test_video.mp4" to test on the video file instead
 cap = cv2.VideoCapture(source)
 
 if not cap.isOpened():
