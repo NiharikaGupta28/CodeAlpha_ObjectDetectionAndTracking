@@ -37,6 +37,10 @@ def draw_stats_panel(frame, fps, current_frame_counts, class_counts, frame_width
 
     return frame
 
+# ============================================================
+# CONFIGURATION
+# ============================================================
+
 model = YOLO("yolov8n.pt")
 
 CONFIDENCE_THRESHOLD = 0.5
@@ -55,15 +59,16 @@ track_history = defaultdict(lambda: deque(maxlen=30))
 
 # Counts unique objects per class
 class_counts = {}
-
-source = 0 # change to "test_video.mp4" to test on the video file instead
+# ============================================================
+# VIDEO SOURCE SETUP
+# ============================================================
+source = "test_video.mp4" # change to "test_video.mp4" to test on the video file instead
 cap = cv2.VideoCapture(source)
 
 if not cap.isOpened():
     print(f"Error: Could not open source: {source}")
     exit()
 
-writer = None
 output_filename = None
 frame_buffer = []  # temporarily hold frames in memory until we know our actual FPS
 
@@ -73,12 +78,17 @@ if SAVE_OUTPUT:
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     output_filename = f"tracked_output_{timestamp}.mp4"
 
-    
+# ============================================================
+# OUTPUT WINDOW SETUP
+# ============================================================
 cv2.namedWindow("YOLOv8 + ByteTrack", cv2.WINDOW_NORMAL)
 cv2.resizeWindow("YOLOv8 + ByteTrack", 640, 480)
 
 prev_time = 0
 session_start_time = time.time()
+# ============================================================
+# MAIN PROCESSING LOOP
+# ============================================================
 while True:
     ret, frame = cap.read()
     if not ret:
@@ -167,7 +177,9 @@ while True:
     elif key == ord('t'):
         show_trails = not show_trails
         print(f"Motion trails: {'ON' if show_trails else 'OFF'}")
-
+# ============================================================
+# CLEANUP AND FINAL OUTPUT
+# ============================================================
 cap.release()
 
 print("\n--- Final Object Counts ---")
