@@ -28,12 +28,12 @@ Real-time object detection and multi-object tracking system built with YOLOv8 an
 
 1. Clone this repo:
 git clone 
-https://github.com/YOUR_USERNAME/CodeAlpha_ObjectDetectionAndTracking.git
+https://github.com/NiharikaGupta28/CodeAlpha_ObjectDetectionAndTracking.git
 cd CodeAlpha_ObjectDetectionAndTracking
 
 2. Create and activate a virtual environment:
-python -m venv venv
-venv\Scripts\activate
+- python -m venv venv
+- venv\Scripts\activate
 
 3. Install dependencies:
 pip install -r requirements.txt
